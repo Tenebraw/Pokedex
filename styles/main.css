@@ -21,8 +21,6 @@ header{
     width: 21%;
 }
 
-
-
 .card{
     width: 15rem;
   align-items: center;
@@ -60,8 +58,6 @@ nav{
   text-align: center;
 }
 
-
-
 ul{
     display: flex;
   justify-content: center;
@@ -92,11 +88,6 @@ ul{
   .modal img{
     width: 25%;
   }
-  /*.modal-content{
-    display: block;
-  width: 85%;
-  margin: auto;
-  }*/
 
   .abilities{
     display: grid;

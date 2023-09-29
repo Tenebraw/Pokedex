@@ -1,5 +1,7 @@
 /// <reference types="jquery"/>
 
+modalStructure();
+
 const containerCol = document.querySelector('#containercol');
 const columnsAp = document.querySelectorAll('.card-title');
 const imageAp = document.querySelectorAll('.card-img-top');
@@ -20,80 +22,17 @@ const specialAttackPokemon= document.querySelectorAll('.specialattack');
 const specialDefensePokemon= document.querySelectorAll('.specialdefense');
 const SpeedPokemon= document.querySelectorAll('.speed');
 
-
-const arrayDirecciones =[
-    'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=20&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=40&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=60&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=80&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=100&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=120&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=140&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=160&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=180&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=200&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=220&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=240&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=260&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=280&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=300&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=320&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=340&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=360&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=380&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=400&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=420&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=440&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=460&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=480&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=500&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=520&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=540&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=560&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=580&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=600&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=620&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=640&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=660&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=680&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=700&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=720&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=740&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=760&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=780&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=800&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=820&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=840&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=860&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=880&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=900&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=920&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=940&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=960&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=980&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1000&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1020&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1040&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1060&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1080&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1100&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1120&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1140&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1160&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1180&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1200&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1220&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1240&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1260&limit=20',
-    'https://pokeapi.co/api/v2/pokemon/?offset=1280&limit=12'
-]
-
 let actualPage = document.querySelector('#actualpage');
+let arrayDirecciones=[];
+let i=0;
+let main;
 
-let i =0;
+for(let i=0;i<=1260; i=i+20){
+    arrayDirecciones.push(`https://pokeapi.co/api/v2/pokemon/?offset=${i}&limit=20`);
+}
+arrayDirecciones.push('https://pokeapi.co/api/v2/pokemon/?offset=1280&limit=12');
+
 main= arrayDirecciones[i];
-
 const UrlPokemon = `${main}` 
 
 makingRequest(UrlPokemon);
@@ -102,17 +41,6 @@ function makingRequest(UrlPokemon){
     fetch(UrlPokemon)
 .then(respuesta=>respuesta.json())
 .then(respuesta=>{
-   // console.log(respuesta)
-    //Object.keys(respuesta.results).forEach(pokemon=>{
-        //console.log(respuesta.results[pokemon].name);
-        //this.respuesta = respuesta;
-
-        //const names = Object.keys(respuesta.results);
-
-
-
-        //columnsAp.text(`${respuesta.results[pokemon].name}`);
-       //let optionValues = [...columnsAp].map(o => o.html().text('hola'));
        for(let i=0;i<columnsAp.length;i++){
         columnsAp[i].textContent=((respuesta.results[i].name));
         let url = respuesta.results[i].url;
@@ -120,10 +48,8 @@ function makingRequest(UrlPokemon){
         fetch(url)
         .then(respuesta2=>respuesta2.json())
         .then(respuesta2=>{
-            //console.log(respuesta2.sprites.front_default);
 
             imageAp[i].src=`${respuesta2.sprites.front_default}`;
-
             modalTitle[i].textContent = `${respuesta2.name}`;
 
             frontDefault[i].src = `${respuesta2.sprites.front_default}`;
@@ -131,7 +57,6 @@ function makingRequest(UrlPokemon){
             shinyFront[i].src =  `${respuesta2.sprites.front_shiny}`;
             shinyBack[i].src =  `${respuesta2.sprites.back_shiny}`;
 
-           // console.log(respuesta2.types.length);
             if(respuesta2.types.length==1){
                 typeFirst[i].textContent = `${respuesta2.types[0].type.name}`;
             }else{
@@ -145,22 +70,15 @@ function makingRequest(UrlPokemon){
             specialAttackPokemon[i].textContent =`${respuesta2.stats[3].base_stat}`;
             specialDefensePokemon[i].textContent =`${respuesta2.stats[4].base_stat}`;
             SpeedPokemon[i].textContent =`${respuesta2.stats[5].base_stat}`;
-
         })
-     
-
        }
-
 })
 .catch(error=>{console.log('Error!',error)})
-
-
 }
+
 function nextPokemonList() {
     i++;
     makingRequest(`${arrayDirecciones[i]}`);
-   // actualPage.textContent=3;
-   console.log(`pagina: ${i+1}`);
    actualPage.value=`${i+1}`;
 }
 
@@ -168,28 +86,63 @@ function previousPokemonList(){
     i--;
     if(i<0){
         makingRequest(`${arrayDirecciones[0]}`)
-        console.log(`pagina: ${0}`);
         actualPage.value=`${0}`;
     }
     else{
         makingRequest(`${arrayDirecciones[i]}`)
-        console.log(`pagina ${i+1}`);
         actualPage.value=`${i+1}`;
     }
 }
 
 function search(ele) {
-    if(event.key === 'Enter') {
-        console.log(parseInt(ele.value));  
+    if(event.key === 'Enter') { 
+        actualPage.value=`${ele.value}`;
+        i=(ele.value)-1; 
         let newId= parseInt(ele.value)-1;
-        console.group(newId);
         let newRequest= arrayDirecciones[newId];
-        console.log(newRequest);
         makingRequest(newRequest);      
     }
 }
 
 
+function modalStructure(){
+    $('.col').after(`    <!-- Modal -->
+<div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+          <img class="front-default" src="" alt=""><img class="back-default" src="" alt=""><img class="shiny-front" src="" alt=""><img class="shiny-back" src="" alt="">
+          <div class="types">
+              <span class="tipo1"></span>
+              <span class="tipo2"></span>
+          </div>
+          <div class="abilities">
+              Health: <span class="health"></span>
+              Attack: <span class="attack"></span>
+              Defense: <span class="defense"></span>
+              Special Attack: <span class="specialattack"></span>
+              Special Defense: <span class="specialdefense"></span>
+              Speed: <span class="speed"></span>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End modal-->`);
 
+let idsModal = document.querySelectorAll('#Modal');
+
+for(let i=0;i<idsModal.length;i++){
+    idsModal[i].setAttribute('id', `modal${i+1}`);
+}
+
+}
 
 
