@@ -71,6 +71,7 @@ function makingRequest(UrlPokemon){
             specialDefensePokemon[i].textContent =`${respuesta2.stats[4].base_stat}`;
             SpeedPokemon[i].textContent =`${respuesta2.stats[5].base_stat}`;
         })
+        .catch(error=>console.log('Error!',error))
        }
 })
 .catch(error=>{console.log('Error!',error)})
