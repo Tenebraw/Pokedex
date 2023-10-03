@@ -3,60 +3,56 @@
 modalStructure();
 
 let actualPage = $("#actualpage");
-let arrayDirecciones = [];
+let arrayRequests = [];
 let i = 0;
+let page = 1;
 
 for (let i = 0; i <= 1260; i = i + 20) {
-  arrayDirecciones.push(
-    `https://pokeapi.co/api/v2/pokemon/?offset=${i}&limit=20`
-  );
+  arrayRequests.push(`https://pokeapi.co/api/v2/pokemon/?offset=${i}&limit=20`);
 }
-arrayDirecciones.push(
-  `https://pokeapi.co/api/v2/pokemon/?offset=1280&limit=12`
-);
 
-const UrlPokemon = arrayDirecciones[i];
+const UrlPokemon = arrayRequests[i];
 makingRequest(UrlPokemon);
 
 function makingRequest(Url) {
   fetch(Url)
-    .then((respuesta) => respuesta.json())
-    .then((respuesta) => {
+    .then((response) => response.json())
+    .then((response) => {
       for (let i = 0; i < $(".card-title").length; i++) {
-        $($(".card-title")[i]).text(respuesta.results[i].name);
-        let secondFetch = respuesta.results[i].url;
+        $($(".card-title")[i]).text(response.results[i].name);
 
+        let secondFetch = response.results[i].url;
         fetch(secondFetch)
-          .then((respuesta2) => respuesta2.json())
-          .then((respuesta2) => {
+          .then((secondresp) => secondresp.json())
+          .then((secondresp) => {
             $($(".card-img-top")[i]).attr(
               "src",
-              respuesta2.sprites.front_default
+              secondresp.sprites.front_default
             );
-            $($(".modal-title")[i]).text(respuesta2.name);
+            $($(".modal-title")[i]).text(secondresp.name);
             $($(".front-default")[i]).attr(
               "src",
-              respuesta2.sprites.front_default
+              secondresp.sprites.front_default
             );
             $($(".back-default")[i]).attr(
               "src",
-              respuesta2.sprites.back_default
+              secondresp.sprites.back_default
             );
-            $($(".shiny-front")[i]).attr("src", respuesta2.sprites.front_shiny);
-            $($(".shiny-back")[i]).attr("src", respuesta2.sprites.back_shiny);
+            $($(".shiny-front")[i]).attr("src", secondresp.sprites.front_shiny);
+            $($(".shiny-back")[i]).attr("src", secondresp.sprites.back_shiny);
 
-            if (respuesta2.types.length == 1) {
-              $($(".tipo1")[i]).text(respuesta2.types[0].type.name);
+            if (secondresp.types.length == 1) {
+              $($(".tipo1")[i]).text(secondresp.types[0].type.name);
             } else {
-              $($(".tipo1")[i]).text(respuesta2.types[0].type.name);
-              $($(".tipo2")[i]).text(respuesta2.types[1].type.name);
+              $($(".tipo1")[i]).text(secondresp.types[0].type.name);
+              $($(".tipo2")[i]).text(secondresp.types[1].type.name);
             }
-            $($(".health")[i]).text(respuesta2.stats[0].base_stat);
-            $($(".attack")[i]).text(respuesta2.stats[1].base_stat);
-            $($(".defense")[i]).text(respuesta2.stats[2].base_stat);
-            $($(".specialattack")[i]).text(respuesta2.stats[3].base_stat);
-            $($(".specialdefense")[i]).text(respuesta2.stats[4].base_stat);
-            $($(".speed")[i]).text(respuesta2.stats[5].base_stat);
+            $($(".health")[i]).text(secondresp.stats[0].base_stat);
+            $($(".attack")[i]).text(secondresp.stats[1].base_stat);
+            $($(".defense")[i]).text(secondresp.stats[2].base_stat);
+            $($(".specialattack")[i]).text(secondresp.stats[3].base_stat);
+            $($(".specialdefense")[i]).text(secondresp.stats[4].base_stat);
+            $($(".speed")[i]).text(secondresp.stats[5].base_stat);
           })
           .catch((error) => console.log("Error!", error));
       }
@@ -67,31 +63,53 @@ function makingRequest(Url) {
 }
 
 function nextPokemonList() {
-  i++;
-  makingRequest(`${arrayDirecciones[i]}`);
-  actualPage.val(`${i + 1}`);
+  if (page == 63) {
+    $("#next").addClass("disabled");
+  }
+
+  page++;
+  actualPage.val(page);
+  if (page == 2) {
+    $("#previous").removeClass("disabled");
+  }
+  makingRequest(`${arrayRequests[page]}`);
 }
 
 function previousPokemonList() {
-  i--;
-  if (i < 0) {
-    makingRequest(`${arrayDirecciones[0]}`);
-    actualPage.val(0);
-  } else {
-    makingRequest(`${arrayDirecciones[i]}`);
-    actualPage.val(`${i + 1}`);
+  page--;
+  actualPage.val(page);
+  $("#next").removeClass("disabled");
+  if (page == 1) {
+    $("#previous").addClass("disabled");
   }
+  makingRequest(arrayRequests[page - 1]);
 }
 
 function search(ele) {
   if (event.key === "Enter") {
-    //actualPage.value = `${ele.value}`;
-    actualPage.val(`${ele.value}`);
-    i = ele.value - 1;
-    let newId = parseInt(ele.value) - 1;
-    let newRequest = arrayDirecciones[newId];
-    makingRequest(newRequest);
+    if (validarInput(ele) == true) {
+      actualPage.val(ele.value);
+      let newId = parseInt(ele.value) - 1;
+      makingRequest(arrayRequests[newId]);
+      page = ele.value;
+      $("#previous").removeClass("disabled");
+      if (page == 64) {
+        $("#next").addClass("disabled");
+      }
+    }
   }
+}
+
+function validarInput(ele) {
+  $("#pagego").removeClass("error");
+  $("#error").css("display", "none");
+
+  if (!$("#pagego").val().match(/^\d+$/) || ele.value > 64 || ele.value < 1) {
+    $("#pagego").addClass("error");
+    $("#error").css("display", "block");
+    return false;
+  }
+  return true;
 }
 
 function modalStructure() {

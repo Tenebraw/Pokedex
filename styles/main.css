@@ -1,115 +1,130 @@
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
-body{
-    background-repeat: no-repeat;
+body {
+  background-repeat: no-repeat;
   background-attachment: fixed;
-    background-image: linear-gradient(#FC354C,#0ABFBC);
-    font-family: 'Caveat', cursive;
-    font-size: 2.1rem;
+  background-image: linear-gradient(#fc354c, #0abfbc);
+  font-family: "Caveat", cursive;
+  font-size: 2.1rem;
 }
-header{
-    background-color: #ff7979;
-    display: flex;
+header {
+  background-color: #ff7979;
+  display: flex;
   justify-content: center;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.banner{
-    width: 21%;
+.banner {
+  width: 21%;
 }
 
-.card{
-    width: 15rem;
+.card {
+  width: 15rem;
   align-items: center;
   margin: 10px auto;
-  background-color: rgba(0,0,0,0.2);
+  background-color: rgba(0, 0, 0, 0.2);
   box-shadow: 0 8px 1px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
-.card-title{
-    font-family: 'Caveat', cursive;
-    font-size: 2.1rem;
+.card-title {
+  font-family: "Caveat", cursive;
+  font-size: 2.1rem;
   line-height: 0.8;
   letter-spacing: 0.005em;
   font-weight: 500;
   font-style: normal;
   margin-top: -20px;
-
 }
 
-.card-img-top{
-    width: 70%;
+.card-img-top {
+  width: 70%;
 }
 
-.card-body{
-    padding-top: 0;
+.card-body {
+  padding-top: 0;
 }
-nav{
-    margin: 40px;
+nav {
+  margin: 40px;
   display: flex;
   justify-content: center;
-
 }
 
-.inputpage{
-    width: 15%;
+.inputpage {
+  width: 15%;
   text-align: center;
 }
 
-ul{
-    display: flex;
+ul {
+  display: flex;
   justify-content: center;
 }
-#previous{
-    margin-right: 10px;
+#previous {
+  margin-right: 10px;
 }
-#next{
-    margin-left: 10px;
+#next {
+  margin-left: 10px;
 }
-
 
 /* The Close Button */
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-  }
-  
-  .close:hover,
-  .close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-  }
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
 
-  .modal img{
-    width: 25%;
-  }
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
 
-  .abilities{
-    display: grid;
+.modal img {
+  width: 25%;
+}
+
+.abilities {
+  display: grid;
   justify-content: center;
-  }
+}
 
-  .modal-content{
-    background-color: floralwhite;
-  }
+.modal-content {
+  background-color: floralwhite;
+}
 
-  .fs-5{
-    font-size: 2.1rem !important;
-    letter-spacing: 0.133em;
-  }
+.fs-5 {
+  font-size: 2.1rem !important;
+  letter-spacing: 0.133em;
+}
 
-  .abilities{
-    font-size: 25px;
-    border-style: dotted;
-  }
+.abilities {
+  font-size: 25px;
+  border-style: dotted;
+}
 
-  .types{
-    font-size: 25px;
+.types {
+  font-size: 25px;
   display: flex;
   justify-content: space-evenly;
-  }
+}
+
+.disabled {
+  pointer-events: none;
+}
+.error {
+  border-style: groove;
+  border-color: red;
+}
+
+#error {
+  position: absolute;
+  top: 1570px;
+  font-size: 19px;
+  left: 759px;
+  color: darkblue;
+  display: none;
+}
