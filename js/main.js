@@ -15,8 +15,8 @@ const UrlPokemon = arrayRequests[i];
 
 // Event Manager
 
-function inicializarPokedex() {
-  makingRequest(UrlPokemon);
+async function inicializarPokedex() {
+  await makingRequest(UrlPokemon);
   showPokemonDetails();
   nextPage(arrayRequests);
   previousPage(arrayRequests);
