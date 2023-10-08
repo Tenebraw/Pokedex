@@ -1,7 +1,7 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
 
-import { makingRequest } from './manageRequest.js';
+import { makingRequest } from './requestModule.js';
 import { validarInput } from './validateInput.js';
 
 const actualPage = $('#actualpage');

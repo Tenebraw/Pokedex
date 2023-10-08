@@ -40,24 +40,24 @@ export function showPokemonDetails() {
   }
 }
 
-export function showPokemonList(secondresp, l) {
-  $($('.card-img-top')[l]).attr('src', secondresp.sprites.front_default);
-  $($('.modal-title')[l]).text(secondresp.name);
-  $($('.front-default')[l]).attr('src', secondresp.sprites.front_default);
-  $($('.back-default')[l]).attr('src', secondresp.sprites.back_default);
-  $($('.shiny-front')[l]).attr('src', secondresp.sprites.front_shiny);
-  $($('.shiny-back')[l]).attr('src', secondresp.sprites.back_shiny);
+export function showPokemonList(secondResponsedata, i) {
+  $($('.card-img-top')[i]).attr('src', secondResponsedata.sprites.front_default);
+  $($('.modal-title')[i]).text(secondResponsedata.name);
+  $($('.front-default')[i]).attr('src', secondResponsedata.sprites.front_default);
+  $($('.back-default')[i]).attr('src', secondResponsedata.sprites.back_default);
+  $($('.shiny-front')[i]).attr('src', secondResponsedata.sprites.front_shiny);
+  $($('.shiny-back')[i]).attr('src', secondResponsedata.sprites.back_shiny);
 
-  if (secondresp.types.length === 1) {
-    $($('.tipo1')[l]).text(secondresp.types[0].type.name);
+  if (secondResponsedata.types.length === 1) {
+    $($('.tipo1')[i]).text(secondResponsedata.types[0].type.name);
   } else {
-    $($('.tipo1')[l]).text(secondresp.types[0].type.name);
-    $($('.tipo2')[l]).text(secondresp.types[1].type.name);
+    $($('.tipo1')[i]).text(secondResponsedata.types[0].type.name);
+    $($('.tipo2')[i]).text(secondResponsedata.types[1].type.name);
   }
-  $($('.health')[l]).text(secondresp.stats[0].base_stat);
-  $($('.attack')[l]).text(secondresp.stats[1].base_stat);
-  $($('.defense')[l]).text(secondresp.stats[2].base_stat);
-  $($('.specialattack')[l]).text(secondresp.stats[3].base_stat);
-  $($('.specialdefense')[l]).text(secondresp.stats[4].base_stat);
-  $($('.speed')[l]).text(secondresp.stats[5].base_stat);
+  $($('.health')[i]).text(secondResponsedata.stats[0].base_stat);
+  $($('.attack')[i]).text(secondResponsedata.stats[1].base_stat);
+  $($('.defense')[i]).text(secondResponsedata.stats[2].base_stat);
+  $($('.specialattack')[i]).text(secondResponsedata.stats[3].base_stat);
+  $($('.specialdefense')[i]).text(secondResponsedata.stats[4].base_stat);
+  $($('.speed')[i]).text(secondResponsedata.stats[5].base_stat);
 }
