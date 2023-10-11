@@ -1,7 +1,7 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
 
-import { showPokemonList } from './displayManager.js';
+import { showPokemonList } from './displayModule.js';
 
 async function secondCall(secondFetch, i) {
   const respo = await fetch(secondFetch);
