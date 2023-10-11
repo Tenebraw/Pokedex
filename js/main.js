@@ -5,14 +5,18 @@ import { makingRequest } from './requestModule.js';
 import { showPokemonDetails, showPokemonList } from './displayModule.js';
 import { nextPage, previousPage, searchPokemon } from './paginationModule.js';
 
-const arrayRequests = [];
-const i = 0;
-const TOTAL_POKEMONS = 1260;
-for (let j = 0; j <= TOTAL_POKEMONS; j += 20) {
-  arrayRequests.push(`https://pokeapi.co/api/v2/pokemon/?offset=${j}&limit=20`);
+function buildUrlArray(TOTAL_POKEMONS, pageSize) {
+  const arrayRequests = [];
+  for (let j = 0; j <= TOTAL_POKEMONS; j += pageSize) {
+    arrayRequests.push(`https://pokeapi.co/api/v2/pokemon/?offset=${j}&limit=20`);
+  }
+  return arrayRequests;
 }
-const urlPokemon = arrayRequests[i];
 
+const TOTAL_POKEMONS = 1260;
+const pageSize = 20;
+const arrayRequests = buildUrlArray(TOTAL_POKEMONS, pageSize);
+const urlPokemon = arrayRequests[0];
 // Event Manager
 
 async function startPokedex() {

@@ -3,7 +3,7 @@
 
 // Validate Input Search.
 
-export function validarInput() {
+export function validateInput() {
   $('#pagego').removeClass('error');
   $('#error').css('display', 'none');
 
