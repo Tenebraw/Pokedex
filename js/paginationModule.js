@@ -2,7 +2,7 @@
 /* eslint-env jquery */
 
 import { makingRequest } from './requestModule.js';
-import { validateInput } from './validateInput.js';
+import { validateSearchInput } from './validationModule.js';
 import { showPokemonList } from './displayModule.js';
 
 const actualPage = $('#actualpage');
@@ -40,7 +40,7 @@ export function searchPokemon(arrayRequests) {
   // Manage search input
   $('#pagego').on('keydown', (e) => {
     if (e.key === 'Enter') {
-      if (validateInput() === (true)) {
+      if (validateSearchInput() === (true)) {
         actualPage.val($('#pagego').val());
         const newId = parseInt($('#pagego').val(), 10) - 1;
         makingRequest(arrayRequests[newId], showPokemonList);

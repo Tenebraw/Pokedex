@@ -1,7 +1,7 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
 
-export function showPokemonDetails() {
+export function createPokemonModal() {
   $('.col').after(`    <!-- Modal -->
 <div class="modal fade" id="Modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">

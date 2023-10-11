@@ -2,8 +2,8 @@
 /* eslint-env jquery */
 /* eslint-disable no-await-in-loop */
 
-async function secondCall(singlePokemonRequest) {
-  const response = await fetch(singlePokemonRequest);
+async function secondCall(getPokemons) {
+  const response = await fetch(getPokemons);
   const jsonData = await response.json();
   return jsonData;
 }
@@ -14,8 +14,8 @@ export async function makingRequest(Url, showPokemonListCallback) {
   for (let i = 0; i < $('.card-title').length; i++) {
     $($('.card-title')[i]).text(jsonData.results[i].name);
 
-    const singlePokemonRequest = jsonData.results[i].url;
-    const secondResponseData = await secondCall(singlePokemonRequest);
+    const getPokemons = jsonData.results[i].url;
+    const secondResponseData = await secondCall(getPokemons);
     showPokemonListCallback(secondResponseData, i);
   }
 }
