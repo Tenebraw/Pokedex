@@ -5,7 +5,7 @@ import { makingRequest } from './requestModule.js';
 import { validateSearchInput } from './validationModule.js';
 import { showPokemonList } from './displayModule.js';
 
-const actualPage = $('#actualpage');
+const actualPage = $('#actual-page');
 let page = 1;
 
 export function nextPage(arrayRequests) {
@@ -38,13 +38,13 @@ export function previousPage(arrayRequests) {
 
 export function searchPokemon(arrayRequests) {
   // Manage search input
-  $('#pagego').on('keydown', (e) => {
+  $('#page-go').on('keydown', (e) => {
     if (e.key === 'Enter') {
       if (validateSearchInput() === (true)) {
-        actualPage.val($('#pagego').val());
-        const newId = parseInt($('#pagego').val(), 10) - 1;
+        actualPage.val($('#page-go').val());
+        const newId = parseInt($('#page-go').val(), 10) - 1;
         makingRequest(arrayRequests[newId], showPokemonList);
-        page = $('#pagego').val();
+        page = $('#page-go').val();
         $('#previous').removeClass('disabled');
         if (parseInt(page, 10) === 64) {
           $('#next').addClass('disabled');
