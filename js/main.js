@@ -11,6 +11,7 @@ function buildUrlArray(TOTAL_POKEMONS, POKEMONS_PER_PAGE) {
     arrayRequests.push(`https://pokeapi.co/api/v2/pokemon/?offset=${j}&limit=20`);
   }
   return arrayRequests;
+
 }
 
 const TOTAL_POKEMONS = 1260;

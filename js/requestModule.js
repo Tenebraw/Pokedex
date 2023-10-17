@@ -2,7 +2,7 @@
 /* eslint-env jquery */
 /* eslint-disable no-await-in-loop */
 
-async function secondCall(getPokemons) {
+export async function secondCall(getPokemons) {
   const response = await fetch(getPokemons);
   const jsonData = await response.json();
   return jsonData;

@@ -20,8 +20,8 @@ export function createPokemonModal() {
               Health: <span class="health"></span>
               Attack: <span class="attack"></span>
               Defense: <span class="defense"></span>
-              Special Attack: <span class="specialattack"></span>
-              Special Defense: <span class="specialdefense"></span>
+              Special Attack: <span class="special-attack"></span>
+              Special Defense: <span class="special-defense"></span>
               Speed: <span class="speed"></span>
           </div>
       </div>
@@ -57,7 +57,7 @@ export function showPokemonList(secondResponsedata, i) {
   $($('.health')[i]).text(secondResponsedata.stats[0].base_stat);
   $($('.attack')[i]).text(secondResponsedata.stats[1].base_stat);
   $($('.defense')[i]).text(secondResponsedata.stats[2].base_stat);
-  $($('.specialattack')[i]).text(secondResponsedata.stats[3].base_stat);
-  $($('.specialdefense')[i]).text(secondResponsedata.stats[4].base_stat);
+  $($('.special-attack')[i]).text(secondResponsedata.stats[3].base_stat);
+  $($('.special-defense')[i]).text(secondResponsedata.stats[4].base_stat);
   $($('.speed')[i]).text(secondResponsedata.stats[5].base_stat);
 }

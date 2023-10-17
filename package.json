@@ -4,7 +4,8 @@
   "description": "Version personal de una pokedex.",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --collect-coverage",
+    "test-dev": "jest --watch",
     "cypress-dev": "cypress open"
   },
   "repository": {
@@ -19,13 +20,20 @@
   "homepage": "https://github.com/Tenebraw/Pokedex#readme",
   "dependencies": {
     "bootstrap": "^5.3.2",
+    "eslint-plugin-jest": "^27.4.2",
     "jquery": "^3.7.1"
   },
   "devDependencies": {
+    "@babel/core": "^7.23.2",
+    "@babel/plugin-transform-modules-commonjs": "^7.23.0",
+    "@babel/preset-env": "^7.23.2",
+    "@types/jest": "^29.5.5",
     "@types/jquery": "^3.5.20",
+    "babel-jest": "^29.7.0",
     "cypress": "^13.3.0",
     "eslint": "^8.50.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.28.1"
+    "eslint-plugin-import": "^2.28.1",
+    "jest": "^29.7.0"
   }
 }
