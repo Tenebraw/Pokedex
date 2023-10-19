@@ -13,8 +13,8 @@ export function createPokemonModal() {
       <div class="modal-body">
           <img class="front-default" src="" alt=""><img class="back-default" src="" alt=""><img class="shiny-front" src="" alt=""><img class="shiny-back" src="" alt="">
           <div class="types">
-              <span class="tipo1"></span>
-              <span class="tipo2"></span>
+              <span class="type1"></span>
+              <span class="type2"></span>
           </div>
           <div class="abilities">
               Health: <span class="health"></span>
@@ -40,24 +40,24 @@ export function createPokemonModal() {
   }
 }
 
-export function showPokemonList(secondResponsedata, i) {
-  $($('.card-img-top')[i]).attr('src', secondResponsedata.sprites.front_default);
-  $($('.modal-title')[i]).text(secondResponsedata.name);
-  $($('.front-default')[i]).attr('src', secondResponsedata.sprites.front_default);
-  $($('.back-default')[i]).attr('src', secondResponsedata.sprites.back_default);
-  $($('.shiny-front')[i]).attr('src', secondResponsedata.sprites.front_shiny);
-  $($('.shiny-back')[i]).attr('src', secondResponsedata.sprites.back_shiny);
+export function showPokemonList(dataPokemons, i) {
+  $($('.card-img-top')[i]).attr('src', dataPokemons.sprites.front_default);
+  $($('.modal-title')[i]).text(dataPokemons.name);
+  $($('.front-default')[i]).attr('src', dataPokemons.sprites.front_default);
+  $($('.back-default')[i]).attr('src', dataPokemons.sprites.back_default);
+  $($('.shiny-front')[i]).attr('src', dataPokemons.sprites.front_shiny);
+  $($('.shiny-back')[i]).attr('src', dataPokemons.sprites.back_shiny);
 
-  if (secondResponsedata.types.length === 1) {
-    $($('.tipo1')[i]).text(secondResponsedata.types[0].type.name);
+  if (dataPokemons.types.length === 1) {
+    $($('.type1')[i]).text(dataPokemons.types[0].type.name);
   } else {
-    $($('.tipo1')[i]).text(secondResponsedata.types[0].type.name);
-    $($('.tipo2')[i]).text(secondResponsedata.types[1].type.name);
+    $($('.type1')[i]).text(dataPokemons.types[0].type.name);
+    $($('.type2')[i]).text(dataPokemons.types[1].type.name);
   }
-  $($('.health')[i]).text(secondResponsedata.stats[0].base_stat);
-  $($('.attack')[i]).text(secondResponsedata.stats[1].base_stat);
-  $($('.defense')[i]).text(secondResponsedata.stats[2].base_stat);
-  $($('.special-attack')[i]).text(secondResponsedata.stats[3].base_stat);
-  $($('.special-defense')[i]).text(secondResponsedata.stats[4].base_stat);
-  $($('.speed')[i]).text(secondResponsedata.stats[5].base_stat);
+  $($('.health')[i]).text(dataPokemons.stats[0].base_stat);
+  $($('.attack')[i]).text(dataPokemons.stats[1].base_stat);
+  $($('.defense')[i]).text(dataPokemons.stats[2].base_stat);
+  $($('.special-attack')[i]).text(dataPokemons.stats[3].base_stat);
+  $($('.special-defense')[i]).text(dataPokemons.stats[4].base_stat);
+  $($('.speed')[i]).text(dataPokemons.stats[5].base_stat);
 }

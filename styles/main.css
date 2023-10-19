@@ -46,21 +46,20 @@ header {
 .card-body {
   padding-top: 0;
 }
+
 nav {
   margin: 40px;
   display: flex;
   justify-content: center;
 }
 
-.input-page {
-  width: 15%;
-  text-align: center;
-}
 
 ul {
   display: flex;
   justify-content: center;
 }
+
+/*Buttons*/
 #previous {
   margin-right: 10px;
 }
@@ -83,25 +82,29 @@ ul {
   cursor: pointer;
 }
 
-.modal img {
-  width: 25%;
+.input-page {
+  width: 15%;
+  text-align: center;
 }
 
-.abilities {
-  display: grid;
-  justify-content: center;
-}
 
-.modal-content {
-  background-color: floralwhite;
-}
-
+/*Modal Title*/
 .fs-5 {
   font-size: 2.1rem !important;
   letter-spacing: 0.133em;
 }
 
+/*Modal Image*/
+.modal img {
+  width: 25%;
+}
+.modal-content {
+  background-color: floralwhite;
+}
+/*stats*/
 .abilities {
+  display: grid;
+  justify-content: center;
   font-size: 25px;
   border-style: dotted;
 }
@@ -120,7 +123,7 @@ ul {
   border-color: red;
 }
 
-#error {
+#error-legend {
   position: absolute;
   top: 1570px;
   font-size: 19px;

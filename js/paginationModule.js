@@ -1,54 +1,71 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
 
-import { makingRequest } from './requestModule.js';
+import { requestPokemonList } from './requestModule.js';
 import { validateSearchInput } from './validationModule.js';
 import { showPokemonList } from './displayModule.js';
 
-const actualPage = $('#actual-page');
-let page = 1;
+const TOTAL_POKEMONS = 1280; 
+const POKEMONS_PER_PAGE = 20;
+const totalPages = calculateNumberOfPages(TOTAL_POKEMONS, POKEMONS_PER_PAGE);
 
-export function nextPage(arrayRequests) {
+export function nextPage(myLimit, forthcomingPage, actualPage) {
   // Manage Next action.
-  $('#next').on('click', () => {
-    if (page === 63) {
-      $('#next').addClass('disabled');
-    }
-    page++;
-    actualPage.val(page);
-    if (page === 2) {
+    if (forthcomingPage <= totalPages) {
+      actualPage.val(forthcomingPage);
+      const newOffset = (forthcomingPage - 1) * myLimit;
+      requestPokemonList(`https://pokeapi.co/api/v2/pokemon/?offset=${newOffset}&limit=${myLimit}`, showPokemonList);
       $('#previous').removeClass('disabled');
     }
-    makingRequest(`${arrayRequests[page - 1]}`, showPokemonList);
-  });
+
+    if (forthcomingPage === totalPages) {
+      $('#next').addClass('disabled');
+    }
+
 }
 
-export function previousPage(arrayRequests) {
+export function previousPage(myLimit, precedingPage, actualPage) {
   // Manage Previous action.
-  $('#previous').on('click', () => {
-    page--;
-    actualPage.val(page);
-    $('#next').removeClass('disabled');
-    if (page === 1) {
+    if (precedingPage >= 1) {
+      actualPage.val(precedingPage);
+      const newOffset = (precedingPage - 1) * myLimit;
+      requestPokemonList(`https://pokeapi.co/api/v2/pokemon/?offset=${newOffset}&limit=${myLimit}`, showPokemonList);
+      $('#next').removeClass('disabled');
+    }
+
+    if (precedingPage === 1) {
       $('#previous').addClass('disabled');
     }
-    makingRequest(arrayRequests[page - 1], showPokemonList);
-  });
+
 }
 
-export function searchPokemon(arrayRequests) {
+function calculateNumberOfPages(TOTAL_POKEMONS, POKEMONS_PER_PAGE) {
+  return Math.ceil(TOTAL_POKEMONS / POKEMONS_PER_PAGE);
+}
+
+
+export function searchPokemon(actualPage) {
   // Manage search input
   $('#page-go').on('keydown', (e) => {
     if (e.key === 'Enter') {
-      if (validateSearchInput() === (true)) {
-        actualPage.val($('#page-go').val());
-        const newId = parseInt($('#page-go').val(), 10) - 1;
-        makingRequest(arrayRequests[newId], showPokemonList);
-        page = $('#page-go').val();
-        $('#previous').removeClass('disabled');
-        if (parseInt(page, 10) === 64) {
-          $('#next').addClass('disabled');
+      const inputPage = parseInt($('#page-go').val(), 10);
+      if (validateSearchInput(inputPage,totalPages)) {
+        actualPage.val(inputPage);
+
+        if (inputPage === 1) {
+          $('#previous').addClass('disabled');
+        } else {
+          $('#previous').removeClass('disabled');
         }
+
+        if (inputPage === totalPages) {
+          $('#next').addClass('disabled');
+        } else {
+          $('#next').removeClass('disabled');
+        }
+
+        const newUrl = `https://pokeapi.co/api/v2/pokemon/?offset=${(inputPage - 1) * 20}&limit=${20}`;
+        requestPokemonList(newUrl, showPokemonList);
       }
     }
   });
