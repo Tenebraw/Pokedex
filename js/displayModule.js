@@ -61,3 +61,11 @@ export function showPokemonList(dataPokemons, i) {
   $($('.special-defense')[i]).text(dataPokemons.stats[4].base_stat);
   $($('.speed')[i]).text(dataPokemons.stats[5].base_stat);
 }
+
+
+export function processData(data, showPokemonListCallback) {
+  for (let i = 0; i < data.results.length; i++) {
+    $($('.card-title')[i]).text(data.results[i].name);
+    showPokemonListCallback(data.responses[i], i);
+  }
+}

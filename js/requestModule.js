@@ -1,6 +1,8 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
 
+import { processData } from "./displayModule.js";
+
 export async function requestForEachPokemon(getPokemons) {
   const response = await fetch(getPokemons);
   const jsonData = await response.json();
@@ -41,10 +43,5 @@ export async function requestPokemonList(Url, showPokemonListCallback) {
 }
 
 
-function processData(data, showPokemonListCallback) {
-  for (let i = 0; i < data.results.length; i++) {
-    $($('.card-title')[i]).text(data.results[i].name);
-    showPokemonListCallback(data.responses[i], i);
-  }
-}
+
 
