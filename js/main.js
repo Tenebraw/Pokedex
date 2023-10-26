@@ -1,7 +1,7 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
 
-import { requestPokemonList } from './requestModule.js';
+import { getPokemonList } from './requestModule.js';
 import { createPokemonModal, showPokemonList } from './displayModule.js';
 import { nextPage, previousPage, searchPokemon } from './paginationModule.js';
 
@@ -15,7 +15,7 @@ const urlPokemon = `https://pokeapi.co/api/v2/pokemon/?offset=${myOffset}&limit=
 // Event Manager
 async function startPokedex() {
   createPokemonModal();
-  await requestPokemonList(urlPokemon, showPokemonList);
+  await getPokemonList(urlPokemon, showPokemonList);
 
   nextPageButton[0].addEventListener('click', () => {
       const currentPage = parseInt(actualPage.val(), 10);

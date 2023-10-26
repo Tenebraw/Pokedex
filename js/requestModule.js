@@ -3,33 +3,23 @@
 
 import { processData } from "./displayModule.js";
 
-export async function requestForEachPokemon(getPokemons) {
-  const response = await fetch(getPokemons);
-  const jsonData = await response.json();
-  return jsonData;
+export async function getPokemon(pokemonId) {
+  const response = await fetch(pokemonId);
+  return await response.json();
 }
 
-export async function requestPokemonList(Url, showPokemonListCallback) {
+export async function getPokemonList(Url, showPokemonListCallback) {
   const localStorageKey = `pokemonData_${Url}`; 
-  const cachedData = localStorage.getItem(localStorageKey);
+  const cachedData = getCachedData(localStorageKey);
 
   if (cachedData) {
     console.log('Datos en cache');
-    const dataStorage = JSON.parse(cachedData);
-    processData(dataStorage, showPokemonListCallback);
+    processData(cachedData, showPokemonListCallback);
   } else {
-    const response = await fetch(Url);
-    const jsonData = await response.json();
-    const promises = [];
-
-    for (let i = 0; i < jsonData.results.length; i++) {
-      const getPokemons = jsonData.results[i].url;
-      promises.push(requestForEachPokemon(getPokemons));
-    }
-
-    const promisesResponses = await Promise.all(promises);
+    const pokemonListJsonData = await fetchPokemonList(Url);
+    const promisesResponses = await Promise.all(pokemonListJsonData.results.map(result => getPokemon(result.url)));
     const combinedData = {
-        results: jsonData.results,
+        results: pokemonListJsonData.results,
         responses: promisesResponses.map(response => ({
           name: response.name,
           sprites: response.sprites,
@@ -37,11 +27,24 @@ export async function requestPokemonList(Url, showPokemonListCallback) {
           stats: response.stats
         })),
 };
-    localStorage.setItem(localStorageKey, JSON.stringify(combinedData));
+    saveDataToLocalStorage(localStorageKey, combinedData);
     processData(combinedData, showPokemonListCallback);
   }
 }
 
+function getCachedData(key) {
+  const cachedData = localStorage.getItem(key);
+  return cachedData ? JSON.parse(cachedData) : null;
+}
+
+async function fetchPokemonList(url) {
+  const response = await fetch(url);
+  return await response.json();
+}
+
+function saveDataToLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
 
 
 

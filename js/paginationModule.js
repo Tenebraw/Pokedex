@@ -1,7 +1,7 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
 
-import { requestPokemonList } from './requestModule.js';
+import { getPokemonList } from './requestModule.js';
 import { validateSearchInput } from './validationModule.js';
 import { showPokemonList } from './displayModule.js';
 
@@ -14,7 +14,7 @@ export function nextPage(myLimit, forthcomingPage, actualPage) {
     if (forthcomingPage <= totalPages) {
       actualPage.val(forthcomingPage);
       const newOffset = (forthcomingPage - 1) * myLimit;
-      requestPokemonList(`https://pokeapi.co/api/v2/pokemon/?offset=${newOffset}&limit=${myLimit}`, showPokemonList);
+      getPokemonList(`https://pokeapi.co/api/v2/pokemon/?offset=${newOffset}&limit=${myLimit}`, showPokemonList);
       $('#previous').removeClass('disabled');
     }
 
@@ -29,7 +29,7 @@ export function previousPage(myLimit, precedingPage, actualPage) {
     if (precedingPage >= 1) {
       actualPage.val(precedingPage);
       const newOffset = (precedingPage - 1) * myLimit;
-      requestPokemonList(`https://pokeapi.co/api/v2/pokemon/?offset=${newOffset}&limit=${myLimit}`, showPokemonList);
+      getPokemonList(`https://pokeapi.co/api/v2/pokemon/?offset=${newOffset}&limit=${myLimit}`, showPokemonList);
       $('#next').removeClass('disabled');
     }
 
@@ -65,7 +65,7 @@ export function searchPokemon(actualPage) {
         }
 
         const newUrl = `https://pokeapi.co/api/v2/pokemon/?offset=${(inputPage - 1) * 20}&limit=${20}`;
-        requestPokemonList(newUrl, showPokemonList);
+        getPokemonList(newUrl, showPokemonList);
       }
     }
   });
