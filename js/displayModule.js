@@ -54,12 +54,14 @@ export function showPokemonList(dataPokemons, i) {
     $($('.type1')[i]).text(dataPokemons.types[0].type.name);
     $($('.type2')[i]).text(dataPokemons.types[1].type.name);
   }
+
   $($('.health')[i]).text(dataPokemons.stats[0].base_stat);
   $($('.attack')[i]).text(dataPokemons.stats[1].base_stat);
   $($('.defense')[i]).text(dataPokemons.stats[2].base_stat);
   $($('.special-attack')[i]).text(dataPokemons.stats[3].base_stat);
   $($('.special-defense')[i]).text(dataPokemons.stats[4].base_stat);
   $($('.speed')[i]).text(dataPokemons.stats[5].base_stat);
+
 }
 
 

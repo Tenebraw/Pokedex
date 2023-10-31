@@ -59,6 +59,7 @@ export function searchPokemon(actualPage) {
         }
 
         if (inputPage === totalPages) {
+
           $('#next').addClass('disabled');
         } else {
           $('#next').removeClass('disabled');
