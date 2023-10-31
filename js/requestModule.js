@@ -1,21 +1,50 @@
 /// <reference types="jquery"/>
 /* eslint-env jquery */
-/* eslint-disable no-await-in-loop */
 
-export async function secondCall(getPokemons) {
-  const response = await fetch(getPokemons);
-  const jsonData = await response.json();
-  return jsonData;
+import { processData } from "./displayModule.js";
+
+export async function getPokemon(pokemonId) {
+  const response = await fetch(pokemonId);
+  return await response.json();
 }
 
-export async function makingRequest(Url, showPokemonListCallback) {
-  const response = await fetch(Url);
-  const jsonData = await response.json();
-  for (let i = 0; i < $('.card-title').length; i++) {
-    $($('.card-title')[i]).text(jsonData.results[i].name);
+export async function getPokemonList(Url, showPokemonListCallback) {
+  const localStorageKey = `pokemonData_${Url}`; 
+  const cachedData = getCachedData(localStorageKey);
 
-    const getPokemons = jsonData.results[i].url;
-    const secondResponseData = await secondCall(getPokemons);
-    showPokemonListCallback(secondResponseData, i);
+  if (cachedData) {
+    console.log('Datos en cache');
+    processData(cachedData, showPokemonListCallback);
+  } else {
+    const pokemonListJsonData = await fetchPokemonList(Url);
+    const promisesResponses = await Promise.all(pokemonListJsonData.results.map(result => getPokemon(result.url)));
+    const combinedData = {
+        results: pokemonListJsonData.results,
+        responses: promisesResponses.map(response => ({
+          name: response.name,
+          sprites: response.sprites,
+          types: response.types,
+          stats: response.stats
+        })),
+};
+    saveDataToLocalStorage(localStorageKey, combinedData);
+    processData(combinedData, showPokemonListCallback);
   }
 }
+
+function getCachedData(key) {
+  const cachedData = localStorage.getItem(key);
+  return cachedData ? JSON.parse(cachedData) : null;
+}
+
+async function fetchPokemonList(url) {
+  const response = await fetch(url);
+  return await response.json();
+}
+
+function saveDataToLocalStorage(key, data) {
+  localStorage.setItem(key, JSON.stringify(data));
+}
+
+
+

@@ -3,13 +3,13 @@
 
 // Validate Input Search.
 
-export function validateSearchInput() {
-  $('#pagego').removeClass('error');
-  $('#error').css('display', 'none');
+export function validateSearchInput(inputPage, totalPages) {
+  $('#page-go').removeClass('error');
+  $('#error-legend').css('display', 'none');
 
-  if (!$('#pagego').val().match(/^\d+$/) || $('#pagego').val() > 64 || $('#pagego').val() < 1) {
-    $('#pagego').addClass('error');
-    $('#error').css('display', 'block');
+  if (isNaN(inputPage) || inputPage > totalPages || inputPage < 1) {
+    $('#page-go').addClass('error');
+    $('#error-legend').css('display', 'block');
     return false;
   }
   return true;
