@@ -37,12 +37,12 @@ function getCachedData(key) {
   return cachedData ? JSON.parse(cachedData) : null;
 }
 
-async function fetchPokemonList(url) {
+export async function fetchPokemonList(url) {
   const response = await fetch(url);
   return await response.json();
 }
 
-function saveDataToLocalStorage(key, data) {
+export function saveDataToLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
 
