@@ -6,11 +6,9 @@ import { getPokemon, getPokemonList} from '../requestModule.js';
 import { showPokemonList } from '../displayModule.js';
 import { fetchPokemonList, saveDataToLocalStorage } from '../requestModule.js';
 
-// Importa jsdom para crear un entorno de navegador emulado
 const jsdom = require('jsdom');
 const { JSDOM } = jsdom;
 
-// Crea una instancia de jsdom y asigna su "window" global
 const dom = new JSDOM('<!doctype html><html><body></body></html>');
 global.window = dom.window;
 global.document = dom.window.document;
@@ -20,7 +18,6 @@ global.$ = $;
 
 
 beforeEach(() => {
-  // Configura localStorage antes de cada prueba
   const localStorageData = {};
   global.localStorage = {
     getItem: (key) => localStorageData[key],
@@ -30,7 +27,6 @@ beforeEach(() => {
 });
 
 afterEach(() => {
-  // Restaura localStorage después de cada prueba
   global.localStorage = undefined;
 });
 
@@ -84,17 +80,12 @@ test('getPokemonList should fetch and process Pokemon list', async () => {
     ]
   };
 
-  // Simula la respuesta de fetch
   const mockResponse = { json: () => mockData };
   global.fetch = jest.fn().mockResolvedValue(mockResponse);
-
-  // Simula la función showPokemonList
   const showPokemonList = jest.fn();
 
-  // Llama a getPokemonList
-  await getPokemonList('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20', showPokemonList);
 
-  // Define la estructura de datos esperada para showPokemonList
+  await getPokemonList('https://pokeapi.co/api/v2/pokemon/?offset=0&limit=20', showPokemonList);
   const expectedData = {
     results: mockData.results,
     responses: mockData.results.map((pokemon) => ({
@@ -105,7 +96,6 @@ test('getPokemonList should fetch and process Pokemon list', async () => {
     })),
   };
 
-  // Verifica si showPokemonList se llamó con los datos esperados
   expect(showPokemonList).toHaveBeenCalledWith(expectedData);
 });
     
