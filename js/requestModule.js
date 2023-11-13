@@ -2,6 +2,7 @@
 /* eslint-env jquery */
 
 import { processData } from "./displayModule.js";
+import { Pokemon } from "./pokemonClass.js";
 
 export async function getPokemon(pokemonId) {
   const response = await fetch(pokemonId);
@@ -18,15 +19,12 @@ export async function getPokemonList(Url, showPokemonListCallback) {
   } else {
     const pokemonListJsonData = await fetchPokemonList(Url);
     const promisesResponses = await Promise.all(pokemonListJsonData.results.map(result => getPokemon(result.url)));
-    const combinedData = {
-        results: pokemonListJsonData.results,
-        responses: promisesResponses.map(response => ({
-          name: response.name,
-          sprites: response.sprites,
-          types: response.types,
-          stats: response.stats
-        })),
+    
+    const combinedData ={
+  results: pokemonListJsonData.results,
+  responses: promisesResponses.map(response=>new Pokemon(response.name, response.sprites, response.types, response.stats)),
 };
+
     saveDataToLocalStorage(localStorageKey, combinedData);
     processData(combinedData, showPokemonListCallback);
   }
